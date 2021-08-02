@@ -1,0 +1,16 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "AnnotationSwift",
+        "repositoryURL": "https://github.com/JavierSaldivarRubio/experimental-annotation-swift",
+        "state": {
+          "branch": null,
+          "revision": "7f09747d4df2c59be4d41da20599d1367b62abee",
+          "version": "0.0.2"
+        }
+      }
+    ]
+  },
+  "version": 1
+}

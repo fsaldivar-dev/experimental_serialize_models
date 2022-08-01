@@ -69,7 +69,6 @@ struct MockModel: Serialize {
 
 final class SerializeTest: XCTestCase {
     func test_parse() {
-        
         let mock = MockModels.init()
         let user = MockModel()
         user.name = "Francisco"

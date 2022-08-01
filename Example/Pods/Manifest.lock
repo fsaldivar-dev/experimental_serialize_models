@@ -1,0 +1,24 @@
+PODS:
+  - AnnotationSerializer (0.0.1):
+    - AnnotationSwift
+  - AnnotationSwift (0.0.3)
+
+DEPENDENCIES:
+  - AnnotationSerializer (from `../`)
+  - AnnotationSwift
+
+SPEC REPOS:
+  trunk:
+    - AnnotationSwift
+
+EXTERNAL SOURCES:
+  AnnotationSerializer:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  AnnotationSerializer: b184b39759417fa25e0554dd4c037aff37d40e66
+  AnnotationSwift: 2722295f4279261ad322154664cf06da80115f08
+
+PODFILE CHECKSUM: 233d2f81d8273b9b7eebbbf44c6f9dc8e50ff9dc
+
+COCOAPODS: 1.11.2

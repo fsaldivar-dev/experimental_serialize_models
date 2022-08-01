@@ -1,0 +1,6 @@
+framework module AnnotationSwift {
+  umbrella header "AnnotationSwift-umbrella.h"
+
+  export *
+  module * { export * }
+}

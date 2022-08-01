@@ -1,0 +1,6 @@
+framework module AnnotationSerializer {
+  umbrella header "AnnotationSerializer-umbrella.h"
+
+  export *
+  module * { export * }
+}

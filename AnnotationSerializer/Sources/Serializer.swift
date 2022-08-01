@@ -71,7 +71,8 @@ public extension SuperEncodable {
                 try encodableKey.encodeValue(from: &container)
                 continue
             }
-            guard let encodableKey =  groupable.getAnnotationAny(typeOf: EncodableKey.self) else {
+            
+            guard let encodableKey = groupable.annotations.first(where: { $0 is EncodableKey }) as? EncodableKey  else {
                 continue
             }
             try encodableKey.encodeValue(from: &container)
@@ -127,18 +128,21 @@ typealias Serialize = SuperEncodable & SuperDecodable
 
 @propertyWrapper
 final public  class SerializeName<Value>: Annotation {
-    public func executeAction<T>(wrappedValue: T?) -> T? {
+    public func tranformValue<T>(wrappedValue: T?) -> T? {
         return wrappedValue
     }
     
-    public func initValue<T>(value: T) {
+    public func updateValue<T>(value: T) {
         guard let value = value as? Value else {
             return
         }
         self.wrappedValue = value
     }
-
-
+    
+    public func executeAction<T>(wrappedValue: T?) -> T? {
+        return wrappedValue
+    }
+    
     let key: String
     public var wrappedValue: Value?
     init(_ key: String) {
@@ -166,17 +170,19 @@ extension SerializeName: DecodableKey where Value: Decodable {
 
 @propertyWrapper
 public final class SerializeTransform<In: Encodable, Out>: Annotation {
-    public func executeAction<T>(wrappedValue: T?) -> T? {
+    public func tranformValue<T>(wrappedValue: T?) -> T? {
         return wrappedValue
     }
     
-    public func initValue<T>(value: T) {
+    
+    
+    public func updateValue<T>(value: T) {
         guard let value = value as? Out else {
             return
         }
         self.wrappedValue = value
     }
-
+    
     let key: String
     public var wrappedValue: Out?
     var transform: TransformOf<Out, In>

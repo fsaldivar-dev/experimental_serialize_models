@@ -15,7 +15,7 @@ let package = Package(
         
         .package(name: "AnnotationSwift",
                  url: "https://github.com/JavierSaldivarRubio/experimental-annotation-swift",
-                 from: "0.0.2")
+                 from: "0.0.3")
         // Dependencies declare other packages that this package depends on.
         // .package(url: /* package url */, from: "1.0.0"),
     ],

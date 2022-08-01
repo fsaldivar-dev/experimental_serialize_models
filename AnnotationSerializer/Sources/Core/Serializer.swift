@@ -4,8 +4,8 @@
 //  Created by Francisco Javier Saldivar Rubio on 2/08/21.
 //  Copyright © 2021 IDS Comercial. All rights reserved.
 //
-import AnnotationSwift
 import Foundation
+import AnnotationSwift
 /// Estructura que contendrá las llaves para deserlizar el objeto, esta estructura tiene la etiqueta que contendra el atributton json, y el id del objeto serializado.
 public struct DynamicCodingKeys: CodingKey {
     public var stringValue: String
@@ -50,8 +50,7 @@ public protocol EncodableKey {
     func encodeValue(from container: inout EncodeContainer) throws
 }
 /// Un tipo que puede codificarse a sí mismo en una representación externa.
-public protocol SuperEncodable: Encodable {
-}
+public protocol SuperEncodable: Encodable { }
 public extension SuperEncodable {
     /// Codifica este valor en el codificador dado.
     ///
@@ -123,29 +122,15 @@ public extension SuperDecodable {
     }
 }
 ///  En ciencias de la computación, la serialización (o marshalling en inglés) consiste en un proceso de codificación de un objeto en un medio de almacenamiento (como puede ser un archivo, o un buffer de memoria) con el fin de transmitirlo a través de una conexión en red como una serie de bytes o en un formato humanamente más legible como XML o JSON
-typealias Serialize = SuperEncodable & SuperDecodable
+public typealias Serialize = SuperEncodable & SuperDecodable
 
 
 @propertyWrapper
-final public  class SerializeName<Value>: Annotation {
-    public func tranformValue<T>(wrappedValue: T?) -> T? {
-        return wrappedValue
-    }
-    
-    public func updateValue<T>(value: T) {
-        guard let value = value as? Value else {
-            return
-        }
-        self.wrappedValue = value
-    }
-    
-    public func executeAction<T>(wrappedValue: T?) -> T? {
-        return wrappedValue
-    }
-    
+final public  class SerializeName<Value> {
+
     let key: String
     public var wrappedValue: Value?
-    init(_ key: String) {
+    public init(_ key: String) {
         self.key = key
         self.wrappedValue = nil
     }
@@ -164,53 +149,6 @@ extension SerializeName: DecodableKey where Value: Decodable {
 
         if let value = try container.decodeIfPresent(Value.self, forKey: codingKey) {
             wrappedValue = value
-        }
-    }
-}
-
-@propertyWrapper
-public final class SerializeTransform<In: Encodable, Out>: Annotation {
-    public func tranformValue<T>(wrappedValue: T?) -> T? {
-        return wrappedValue
-    }
-    
-    
-    
-    public func updateValue<T>(value: T) {
-        guard let value = value as? Out else {
-            return
-        }
-        self.wrappedValue = value
-    }
-    
-    let key: String
-    public var wrappedValue: Out?
-    var transform: TransformOf<Out, In>
-    
-    init(_ key: String,
-         _ transform: TransformOf<Out, In>,
-         file: String = #fileID,
-         function: String = #function,
-         line: Int = #line) {
-        self.key = key
-        self.wrappedValue = nil
-        self.transform = transform
-    }
-}
-
-extension SerializeTransform: EncodableKey where In: Encodable {
-    public func encodeValue(from container: inout EncodeContainer) throws {
-        transform.transformToJSON(&container, wrappedValue, key: key)
-    }
-}
-
-extension SerializeTransform: DecodableKey where Out: Decodable {
-    public func decodeValue(from container: DecodeContainer) throws {
-        let codingKey = DynamicCodingKeys(key: key)
-        if let value = try container.decodeIfPresent(Out.self, forKey: codingKey) {
-            wrappedValue = value
-        } else {
-            debugPrint("\(Serialize.self) -> Not decode")
         }
     }
 }

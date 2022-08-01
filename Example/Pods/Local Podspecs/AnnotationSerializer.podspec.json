@@ -1,0 +1,26 @@
+{
+  "name": "AnnotationSerializer",
+  "version": "0.0.1",
+  "summary": "Librería que permite agrupar multilpes propertywrapers",
+  "homepage": "https://github.com/JavierSaldivarRubio/experimental-annotation-swift",
+  "license": {
+    "type": "MIT",
+    "file": "LICENSE.md"
+  },
+  "authors": "Francisco Javier Saldivar Rubio",
+  "source": {
+    "git": "https://github.com/fsaldivar-dev/experimental_serialize_models.git",
+    "tag": "0.0.1"
+  },
+  "platforms": {
+    "ios": "13.0"
+  },
+  "swift_versions": "5.0",
+  "source_files": "AnnotationSerializer/Sources/**/*",
+  "dependencies": {
+    "AnnotationSwift": [
+
+    ]
+  },
+  "swift_version": "5.0"
+}

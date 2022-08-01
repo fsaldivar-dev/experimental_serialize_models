@@ -47,6 +47,7 @@ extension TransformOf where Out == Date, In == String {
         }
     }
 }
+
 struct MockModels: Serialize {
     @SerializeName("names_group")
     var namesGroup: [MockModel]?
@@ -87,8 +88,9 @@ final class SerializeTest: XCTestCase {
         mock.namesGroup = [user, user1, user2]
         
         XCTAssertNotNil(mock.toJsonData())
+        print(mock.toJsonString())
         XCTAssertNotNil(mock.toJsonString())
-        XCTAssert((mock.toJsonString()?.count ?? 0) > 0)
+        
         XCTAssert(mock.simpleDate != nil)
     }
 }

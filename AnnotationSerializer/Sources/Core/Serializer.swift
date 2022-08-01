@@ -90,14 +90,26 @@ public extension SuperEncodable {
 
     /// Método que serializa el obeto  y retorna  un `json` de tipo `String`
     /// - Returns: retorna la cadena de caracteres serializada. `json Stirng`
-    func toJsonString() -> String? {
+    func toJsonString() -> NSString? {
         let encode = JSONEncoder()
+        encode.outputFormatting = .prettyPrinted
+        
         guard let data = try? encode.encode(self) else {
             return  nil
         }
-        return String(data: data, encoding: String.Encoding.utf8)
+        return data.prettyPrintedJSONString
     }
 
+}
+
+extension Data {
+    var prettyPrintedJSONString: NSString? { /// NSString gives us a nice sanitized debugDescription
+        guard let object = try? JSONSerialization.jsonObject(with: self, options: []),
+              let data = try? JSONSerialization.data(withJSONObject: object, options: [.prettyPrinted]),
+              let prettyPrintedString = NSString(data: data, encoding: String.Encoding.utf8.rawValue) else { return nil }
+
+        return prettyPrintedString
+    }
 }
 
 /// Protocolo que expone funciones para decodificar un json

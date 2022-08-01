@@ -22,6 +22,7 @@ extension SerializeName: Annotation {
 
 }
 
+@available(macOS 10.15, *)
 extension State: Annotation {
     public func tranformValue<T>(wrappedValue: T?) -> T? {
         return wrappedValue
